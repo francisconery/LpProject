@@ -16,10 +16,11 @@
  * Metodo main, onde o programa inicia
  */
 int main(int argc, const char * argv[]) {
-	int matrizSize = 10, matrizUsedLines = 0;
+	
+	int matrizSize = 1, matrizUsedLines = 0;
 	char **matriz = criarMatrizDinamica(matrizSize); //matriz inicializada com 10x10
 	char * fileMessages = carregarDoTxt(); //input do ficheiro txt
-	insertLinha(matriz, &matrizSize, &matrizUsedLines, fileMessages);
+	insertLinha(matriz, &matrizSize, &matrizUsedLines, fileMessages); //carrega do txt para a matriz
 	printMatriz(matriz, matrizUsedLines);
 	
 	

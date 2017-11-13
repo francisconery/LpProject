@@ -36,7 +36,7 @@ char * carregarDoTxt(){
 
 /**
  * @brief Função que cria uma matriz
- * @param size, numero de linhas a criar a matriz
+ * @param size numero de linhas a criar a matriz
  */
 char ** criarMatrizDinamica(int size){
 	return (char**)malloc(sizeof(char*)*size);
@@ -44,10 +44,10 @@ char ** criarMatrizDinamica(int size){
 
 
 /**
- * @brief Função que vai
- * @param **matriz, matriz a entrar
- * @param position,
- * @param size,
+ * @brief Função que vai alocar memoria para a matriz
+ * @param matriz matriz a entrar
+ * @param position fsd
+ * @param size numero de linhas
  */
 void alocarMemoriaParaLinha(char **matriz, int position, long size){
 	if (matriz != NULL)
@@ -55,10 +55,10 @@ void alocarMemoriaParaLinha(char **matriz, int position, long size){
 }
 
 /**
- * @brief
- * @param **matriz, matriz a entrar
- * @param *matrizSize, numero de linhas total que a matriz tem
- * @param numPositionsToAdd, numero de posições a adicionar
+ * @brief jhf
+ * @param matriz matriz a entrar
+ * @param matrizSize numero de linhas total que a matriz tem
+ * @param numPositionsToAdd numero de posições a adicionar
  */
 char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToAdd){
 	if (matriz != NULL){
@@ -69,10 +69,11 @@ char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToA
 }
 
 /**
- * @brief
- * @param **matriz, matriz a entrar
- * @param *matrizSize, numero de linhas total que a matriz tem
- * @param matrizUsedLines,
+ * @brief Função que vai carregar o conteudo do txt para a matriz
+ * @param matriz matriz a entrar
+ * @param matrizSize numero de linhas total que a matriz tem
+ * @param matrizUsedLines numero de linahs utilizadas até agora
+ * @param string string do txt a ser carregada numa linha
  */
 void insertLinha(char ** matriz, int * matrizSize, int * matrizUsedLines, char * string){
 	if (matriz == NULL){
@@ -82,7 +83,7 @@ void insertLinha(char ** matriz, int * matrizSize, int * matrizUsedLines, char *
 	}
 	
 	if ((*matrizUsedLines) >= (*matrizSize)){
-		matriz = addicionaMaisLinhas(matriz, matrizSize, 10);
+		matriz = addicionaMaisLinhas(matriz, matrizSize, 1);
 	}
 	
 	long stringSize = strlen(string);
@@ -90,7 +91,11 @@ void insertLinha(char ** matriz, int * matrizSize, int * matrizUsedLines, char *
 	strcpy(matriz[(*matrizUsedLines)++], string);
 }
 
-
+/**
+ * @brief função de print matriz
+ * @param matriz matriz a entrar
+ * @param numLinesUsed numero de linahs utilizadas até ao momento
+ */
 void printMatriz(char ** matriz, int numLinesUsed){
 	if (matriz != NULL){
 		puts("Matrix content:\n");
