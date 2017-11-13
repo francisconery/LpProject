@@ -7,26 +7,21 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "header.h"
 #define M 50 // macro 50
 
 /**
- * Metodo Main, onde o programa é executado
+ * Metodo main, onde o programa inicia
  */
 int main(int argc, const char * argv[]) {
-	char **matriz = criarMatrizDinamica(10);//matriz inicializada com 10x10
-	carregarDoTxt(matriz); // input do ficheiro txt
+	int matrizSize = 10, matrizUsedLines = 0;
+	char **matriz = criarMatrizDinamica(matrizSize); //matriz inicializada com 10x10
+	char * fileMessages = carregarDoTxt(); //input do ficheiro txt
+	insertLinha(matriz, &matrizSize, &matrizUsedLines, fileMessages);
+	printMatriz(matriz, matrizUsedLines);
 	
-	for(int i =0; i<10;i++){
-		//printf("%s\n",&matriz);
-	}
-    
-    //char *matriz[10][10] = {};
-    //matriz[0][0] = string1;
-    //printf("%s", matriz[0][0]);
-    //printMensagens(*matriz, 2, M);
-	
-	//printf("ola Mundo Vou acabar\n");
 	
     return 0;
 }

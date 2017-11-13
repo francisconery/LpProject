@@ -9,10 +9,12 @@
 #ifndef header_h
 #define header_h
 
-
-void printMensagens(char *matriz[], int l, int c);
-void carregarDoTxt(**matriz);
-void carregarMatriz(void);
+char *carregarDoTxt(void);
 char ** criarMatrizDinamica(int size);
+void alocarMemoriaParaLinha(char **matriz, int position, long size);
+char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToAdd);
+void insertLinha(char ** matriz, int * matrizSize, int * matrizUsedLines, char * string);
+void printMatriz(char ** matriz, int numLinesUsed);
+
 
 #endif /* header_h */
