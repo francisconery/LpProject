@@ -28,6 +28,7 @@
 		A98A97BB1FB74EDC00E2E4B5 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A98A97C21FB75A3D00E2E4B5 /* header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = header.h; sourceTree = "<group>"; };
 		A98A97C31FB75A7300E2E4B5 /* functions.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = functions.c; sourceTree = "<group>"; };
+		B3283C931FB9095F0066345F /* conversa.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = conversa.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +61,7 @@
 		A98A97BA1FB74EDB00E2E4B5 /* LPProject */ = {
 			isa = PBXGroup;
 			children = (
+				B3283C931FB9095F0066345F /* conversa.txt */,
 				A98A97BB1FB74EDC00E2E4B5 /* main.c */,
 				A98A97C31FB75A7300E2E4B5 /* functions.c */,
 				A98A97C21FB75A3D00E2E4B5 /* header.h */,
