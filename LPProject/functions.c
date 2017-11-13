@@ -91,6 +91,9 @@ void insertLinha(char ** matriz, int * matrizSize, int * matrizUsedLines, char *
 	strcpy(matriz[(*matrizUsedLines)++], string);
 }
 
+void nery_a_levar_no_cu{
+    
+}
 /**
  * @brief função de print matriz
  * @param matriz matriz a entrar
