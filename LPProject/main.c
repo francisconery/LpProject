@@ -18,11 +18,21 @@
 int main(int argc, const char * argv[]) {
 	
 	int matrizSize = 1, matrizUsedLines = 0;
-	char **matriz = criarMatrizDinamica(matrizSize); //matriz inicializada com 10x10
+	int dicionarioSize = 1, dicionarioUsedLines=0;
 	char * fileMessages = carregarDoTxt(); //input do ficheiro txt
-	insertLinha(matriz, &matrizSize, &matrizUsedLines, fileMessages); //carrega do txt para a matriz
+	
+	char **matriz = criarMatrizDinamica(matrizSize); //matriz inicializada
+	char **dicionario = criarMatrizDinamica(dicionarioSize); //matriz- dicionario inicializada
+	
+	token(matriz,&matrizSize,&matrizUsedLines,fileMessages,"?!.");
+	//verificaDicionario(matriz, &matrizSize, &matrizUsedLines, dicionario, &dicionarioSize, &dicionarioUsedLines, fileMessages); // verifica dicionario
+	token(dicionario,&dicionarioSize,&dicionarioUsedLines,fileMessages," \n\t\0?!,;.");
+	
 	printMatriz(matriz, matrizUsedLines);
+	printMatriz(dicionario, dicionarioUsedLines);
 	
 	
+	return 0;
+
     return 0;
 }

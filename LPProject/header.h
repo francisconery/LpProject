@@ -16,5 +16,5 @@ char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToA
 void insertLinha(char ** matriz, int * matrizSize, int * matrizUsedLines, char * string);
 void printMatriz(char ** matriz, int numLinesUsed);
 
-
+void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, char *conjunto);
 #endif /* header_h */

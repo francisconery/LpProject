@@ -61,10 +61,10 @@ void alocarMemoriaParaLinha(char **matriz, int position, long size){
  * @param numPositionsToAdd numero de posições a adicionar
  */
 char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToAdd){
-	if (matriz != NULL){
-		matriz = (char**)realloc(matriz, (*matrizSize) + numPositionsToAdd);
+	matriz = (char**)realloc(matriz, (*matrizSize) + numPositionsToAdd);
 		(*matrizSize) = (*matrizSize) + numPositionsToAdd;
-	}
+
+	
 	return matriz;
 }
 
@@ -78,12 +78,12 @@ char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToA
 void insertLinha(char ** matriz, int * matrizSize, int * matrizUsedLines, char * string){
 	if (matriz == NULL){
 		matriz = criarMatrizDinamica(10);
-		(*matrizSize) = 0;
+		//(*matrizSize) = 0;
 		(*matrizUsedLines) = 0;
 	}
 	
 	if ((*matrizUsedLines) >= (*matrizSize)){
-		matriz = addicionaMaisLinhas(matriz, matrizSize, 1);
+		matriz = addicionaMaisLinhas(matriz, matrizSize, 10);
 	}
 	
 	long stringSize = strlen(string);
@@ -106,3 +106,33 @@ void printMatriz(char ** matriz, int numLinesUsed){
 }
 
 
+/**
+ * @brief Função que vai verificar com o token enviado e vai usar isso como delimiter para as matrizes
+ */
+void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, char *conjunto){
+	char *t;
+	t= strtok(string, conjunto);
+	
+	while (t!=NULL) {
+		insertLinha(matriz, tamanhoMatriz, numeroLinhas, t);
+		t=strtok(NULL, conjunto);
+	}
+}
+/**
+ void verificaDicionario(char ** matriz, int * matrizSize, int * matrizUsedLines, char ** dicionario, int * dicionarioSize, int * dicionarioUsedLines, char * string){
+ 
+ if (dicionario == NULL){
+ dicionario = criarMatrizDinamica(1);
+ (*dicionarioSize) = 0;
+ (*dicionarioUsedLines) = 0;
+ }
+ if ((*dicionarioUsedLines) >= (*dicionarioSize)){
+ dicionario = addicionaMaisLinhas(dicionario, dicionarioSize, 1);
+ }
+ 
+ long stringSize = strlen(string);
+ alocarMemoriaParaLinha(dicionario, *dicionarioUsedLines, stringSize);
+ 
+ strcpy(dicionario[(*dicionarioUsedLines)++], string);
+ }
+ */
