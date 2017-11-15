@@ -24,15 +24,12 @@ int main(int argc, const char * argv[]) {
 	char **matriz = criarMatrizDinamica(matrizSize); //matriz inicializada
 	char **dicionario = criarMatrizDinamica(dicionarioSize); //matriz- dicionario inicializada
 	
-	token(matriz,&matrizSize,&matrizUsedLines,fileMessages,"?!.");
+	token(matriz,&matrizSize,&matrizUsedLines,fileMessages,"?!.\n");//escreve o conteuno no txt para a matriz com o respetivo token como regra
+	//token(dicionario,&dicionarioSize,&dicionarioUsedLines,fileMessages," \n\t\0?!,;.");
 	//verificaDicionario(matriz, &matrizSize, &matrizUsedLines, dicionario, &dicionarioSize, &dicionarioUsedLines, fileMessages); // verifica dicionario
-	token(dicionario,&dicionarioSize,&dicionarioUsedLines,fileMessages," \n\t\0?!,;.");
 	
 	printMatriz(matriz, matrizUsedLines);
-	printMatriz(dicionario, dicionarioUsedLines);
-	
-	
-	return 0;
+	//printMatriz(dicionario, dicionarioUsedLines);
 
     return 0;
 }
