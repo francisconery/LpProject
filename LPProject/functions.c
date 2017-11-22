@@ -24,7 +24,7 @@ char * carregarDoTxt(){
 	
 	if (fp != NULL){
 		while(fgets(buffer, 100, fp)){
-			//fgetc(fp);
+			
 			readed+=strlen(buffer);
 			content = (char*)realloc(content, sizeof(char) * readed);
 			strcat(content, buffer);
@@ -40,7 +40,9 @@ char * carregarDoTxt(){
  * @param size numero de linhas a criar a matriz
  */
 char ** criarMatrizDinamica(int size){
-	return (char**)malloc(sizeof(char*)*size);
+	char ** aux = (char**)malloc(sizeof(char**));
+	*aux = (char*)malloc(sizeof(char*) * size);
+	return aux;
 }
 
 
@@ -52,7 +54,7 @@ char ** criarMatrizDinamica(int size){
  */
 void alocarMemoriaParaLinha(char **matriz, int position, long size){
 	if (matriz != NULL)
-		matriz[position] = (char*)calloc(sizeof(char), size);
+		*(matriz + position) = (char*)calloc(sizeof(char), size);
 }
 
 /**
@@ -62,8 +64,8 @@ void alocarMemoriaParaLinha(char **matriz, int position, long size){
  * @param numPositionsToAdd numero de posições a adicionar
  */
 char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToAdd){
-	matriz = (char**)realloc(matriz, (*matrizSize) + numPositionsToAdd);
-		(*matrizSize) = (*matrizSize) + numPositionsToAdd;
+	*matriz = (char*)realloc(*matriz, sizeof(char*) * ((*matrizSize) + numPositionsToAdd));
+	(*matrizSize) = (*matrizSize) + numPositionsToAdd;
 	return matriz;
 }
 
@@ -87,7 +89,10 @@ void insertLinha(char ** matriz, int * tamanhoMatriz, int * numeroLinhas, char *
 	
 	long stringSize = strlen(string);
 	alocarMemoriaParaLinha(matriz, *numeroLinhas, stringSize);
-	strcpy(matriz[(*numeroLinhas)++], string);
+	int aux = *numeroLinhas;
+	
+	strcpy(*(matriz + aux), string);
+	*numeroLinhas = aux + 1;
 }
 
 /**
@@ -99,8 +104,7 @@ void printMatriz(char ** matriz, int numLinesUsed){
 	if (matriz != NULL){
 		puts("Matrix content:\n");
 		for (int i = 0; i<numLinesUsed; i++){
-			puts(matriz[i]);
-			//printf("passou %d\n",i);
+			puts(*(matriz + i));
 		}
 	}
 }
@@ -116,15 +120,40 @@ void printMatriz(char ** matriz, int numLinesUsed){
  */
 void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, char *conjunto){
 	char *t;
+	char * stringClone = (char*)malloc(sizeof(char) * strlen(string));
+	char * strstrResult = NULL;
+	char * finalMessage = NULL;
+	
+	strcpy(stringClone, string);
+	
 	t= strtok(string, conjunto);
 	
 	while (t!=NULL) {
-		//printf("%s",t);
-		insertLinha(matriz, tamanhoMatriz, numeroLinhas, t);
+	finalMessage = (char*)calloc(sizeof(char), strlen(t) + 1);
+		strcpy(finalMessage, t);
+		strstrResult = strstr(stringClone, t);
+	
+		finalMessage[strlen(t)] = strstrResult[strlen(t)];
+		
+		insertLinha(matriz, tamanhoMatriz, numeroLinhas, finalMessage);
+		free(finalMessage);
 		t=strtok(NULL, conjunto);
 	}
-	
-	
+	//print_array();
+	free(stringClone);
+}
+
+void delimiterPalavra(char ** dicionario, int * dicionarioSize,int *numeroPalavras,char * string, char *conjunto){
+	char *t;
+	t= strtok(string, conjunto);
+	printf("->%s\n",t);
+	while (t!=NULL) {
+		
+		insertLinha(dicionario, dicionarioSize, numeroPalavras, t);
+		
+		t=strtok(NULL, conjunto);
+	}
+	//print_array();
 }
 /**
  *

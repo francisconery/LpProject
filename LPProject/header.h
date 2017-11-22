@@ -17,7 +17,8 @@ void insertLinha(char ** matriz, int * tamanhoMatriz, int * numeroLinhas, char *
 void printMatriz(char ** matriz, int numLinesUsed);
 void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, char *conjunto);
 
+//void delimiterPalavra(char ** dicionario, int * dicionarioSize, char * string);
+void delimiterPalavra(char ** dicionario, int * dicionarioSize,int *numeroPalavras,char * string, char *conjunto);
 void verificaDicionario(char ** matriz, int * matrizSize, int * matrizUsedLines, char ** dicionario, int * dicionarioSize, int * dicionarioUsedLines, char * string);
-
 
 #endif /* header_h */
