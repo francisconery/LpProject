@@ -3,7 +3,6 @@
 //  LPProject
 //
 //  Created by Suse Ribeiro & Francisco Nery on 11/11/17.
-//  Copyright © 2017 Suse Ribeiro. All rights reserved.
 //
 
 #include <stdio.h>
@@ -17,8 +16,8 @@
  */
 int main(int argc, const char * argv[]) {
 	
-	int matrizSize = 1, matrizUsedLines = 0;
-	int dicionarioSize = 0, dicionarioUsedLines=0;
+	int matrizSize = 0, matrizUsedLines = 0;
+	int dicionarioSize = 10, dicionarioUsedLines=0;
 	char * fileMessages = carregarDoTxt(); //input do ficheiro txt
 	
 	char **matriz = criarMatrizDinamica(matrizSize); //matriz inicializada
@@ -26,13 +25,14 @@ int main(int argc, const char * argv[]) {
 	
 	
 	token(matriz,&matrizSize,&matrizUsedLines,fileMessages,"?!.\n");//escreve o conteuno no txt para a matriz com o respetivo token como regra
-	//token(dicionario,&dicionarioSize,&dicionarioUsedLines,fileMessages," \n\t\0?!,;.");
+	token(dicionario,&dicionarioSize, &dicionarioUsedLines,fileMessages, " ");
 	
-	delimiterPalavra(dicionario, &dicionarioSize,&dicionarioUsedLines, fileMessages,",?!;. \0");
-	//verificaDicionario(matriz, &matrizSize, &matrizUsedLines, dicionario, &dicionarioSize, &dicionarioUsedLines, fileMessages); // verifica dicionario
+	dicionario=verificaRepeatedWords(&fileMessages, &dicionarioSize,&dicionarioUsedLines);
 	
-	//printMatriz(matriz, matrizUsedLines);
-	printMatriz(dicionario, dicionarioUsedLines);
+	printMatriz(matriz, matrizUsedLines);
+	printf("___\n");
 
+	printMatriz(dicionario, dicionarioUsedLines);
+	printf("___\n");
     return 0;
 }

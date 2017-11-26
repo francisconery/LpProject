@@ -3,7 +3,6 @@
 //  LPProject
 //
 //  Created by Suse Ribeiro & Francisco Nery on 11/11/17.
-//  Copyright © 2017 Suse Ribeiro. All rights reserved.
 //
 
 #ifndef header_h
@@ -16,9 +15,9 @@ char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToA
 void insertLinha(char ** matriz, int * tamanhoMatriz, int * numeroLinhas, char * string);
 void printMatriz(char ** matriz, int numLinesUsed);
 void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, char *conjunto);
-
+char** verificaRepeatedWords(char ** dicionario, int * dicionarioSize,int *numeroPalavras);
 //void delimiterPalavra(char ** dicionario, int * dicionarioSize, char * string);
-void delimiterPalavra(char ** dicionario, int * dicionarioSize,int *numeroPalavras,char * string, char *conjunto);
-void verificaDicionario(char ** matriz, int * matrizSize, int * matrizUsedLines, char ** dicionario, int * dicionarioSize, int * dicionarioUsedLines, char * string);
+//void delimiterPalavra(char ** dicionario, int * dicionarioSize,char * string, char *conjunto);
+int verificaDicionario(char *string,char **aux,int *size);
 
 #endif /* header_h */

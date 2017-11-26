@@ -2,8 +2,7 @@
 //  functions.c
 //  LPProject
 //  Users/FranciscoNery/Documents/XCode/LpProject/LPProject/main.c
-//  Created by Suse Ribeiro on 11/11/17.
-//  Copyright © 2017 Suse Ribeiro. All rights reserved.
+//  Created by Suse Ribeiro & Francisco Nery on 11/11/17.
 //
 
 #include <stdio.h>
@@ -40,16 +39,14 @@ char * carregarDoTxt(){
  * @param size numero de linhas a criar a matriz
  */
 char ** criarMatrizDinamica(int size){
-	char ** aux = (char**)malloc(sizeof(char**));
-	*aux = (char*)malloc(sizeof(char*) * size);
+	char ** aux = (char**)malloc(sizeof(char*)* size);
 	return aux;
 }
 
-
 /**
- * @brief Função que vai alocar memoria para a matriz
+ * @brief Função que vai alocar memoria para uma linha da matriz dinamica
  * @param matriz matriz a entrar
- * @param position fsd
+ * @param position posicao da matriz onde vai alocar a memoria ( linha)
  * @param size numero de linhas
  */
 void alocarMemoriaParaLinha(char **matriz, int position, long size){
@@ -58,7 +55,7 @@ void alocarMemoriaParaLinha(char **matriz, int position, long size){
 }
 
 /**
- * @brief jhf
+ * @brief Função que recebe uma matriz e aloca mais espaço para ela, retornando a nova
  * @param matriz matriz a entrar
  * @param matrizSize numero de linhas total que a matriz tem
  * @param numPositionsToAdd numero de posições a adicionar
@@ -111,7 +108,7 @@ void printMatriz(char ** matriz, int numLinesUsed){
 
 
 /**
- * @brief Função que vai verificar com o token enviado e vai usar isso como delimiter para as matrizes
+ * @brief Função que vai verificar com o token enviado e vai usar isso como delimiter para as palavras
  * @param matriz matriz a entrar
  * @param tamanhoMatriz numero de linhas total que a matriz tem
  * @param numeroLinhas numero de linahs utilizadas até agora
@@ -119,7 +116,7 @@ void printMatriz(char ** matriz, int numLinesUsed){
  * @param conjunto delimitadores do token
  */
 void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, char *conjunto){
-	char *t;
+	char * t;
 	char * stringClone = (char*)malloc(sizeof(char) * strlen(string));
 	char * strstrResult = NULL;
 	char * finalMessage = NULL;
@@ -142,51 +139,45 @@ void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, 
 	//print_array();
 	free(stringClone);
 }
-
-void delimiterPalavra(char ** dicionario, int * dicionarioSize,int *numeroPalavras,char * string, char *conjunto){
-	char *t;
-	t= strtok(string, conjunto);
-	printf("->%s\n",t);
-	while (t!=NULL) {
-		
-		insertLinha(dicionario, dicionarioSize, numeroPalavras, t);
-		
-		t=strtok(NULL, conjunto);
-	}
-	//print_array();
-}
 /**
- *
- *//*
-void verificaDicionario(char ** matriz, int * matrizSize, int * matrizUsedLines, char ** dicionario, int * dicionarioSize, int * dicionarioUsedLines, char * string){
-	
-	
-	char *t= strtok(string, " \n\t\0?!,;.");
-	
-	for(int i=0;i<dicionarioSize;i++){
-		while (t!=NULL) {
-			insertLinha(dicionario, dicionarioSize, dicionarioUsedLines, t);
-			dicionario[i][0]=string;
-			t=strtok(NULL, " \n\t\0?!,;.");
-		}
-	}
-	
-	
-	
-	/**
-	for(int i=0;i<&matrizSize;i++){
-		for(int j=0;j<&matrizUsedLines;j++){
-			for(int k=0;k<&dicionarioSize;k++){
-				for(int w=0;w<&dicionarioUsedLines;w++){
-					while(i!=' '){
-					strcpy(dicionario[(*dicionarioUsedLines)++],string);
-						
-					}
-				}
-			}
-		}
-	}
+ * @brief Função que vai verificar se as palavras sao repetidas e se nao forem insere uma nova na matriz dicionario
+ * @param dicionario matriz
+ * @param dicionarioSize tamanho da matriz
+ * @param numeroPalavras numero de palavras a receber
  */
+char** verificaRepeatedWords(char ** dicionario, int * dicionarioSize,int *numeroPalavras){
+	int n=10;
+	char ** mtx = criarMatrizDinamica(n);
+	int number = *numeroPalavras;
+	int v=0;
+	
+	for(int i=0;i<number;i++){
+		
+		if(*(dicionario+i)!=NULL&&verificaDicionario(*(dicionario+i),mtx,&v)==0){
+			*(mtx+v)=(char*)malloc(sizeof(char)*strlen(*(dicionario+i))+1);
+			strcpy(*(mtx+v), *(dicionario+i));
+			v++;
+		}
+	}
+	
+	return mtx;
+}
+
+/**
+ * @brief Funsao que verifica individualmente se a palavra hexiste ja ou nao
+ * @param string palavra
+ * @param aux palavra a comparar
+ * @param size tamanho da palavra
+ */
+int verificaDicionario(char *string,char **aux,int *size){
+	
+	for(int i=0;i<(*size);i++){
+		if(strcmp(string,*(aux+i))==0)
+			return 0;
+	}
+	return 0;
+	}
+ 
 /**
 	if (dicionario == NULL){
 		dicionario = criarMatrizDinamica(1);
