@@ -7,8 +7,10 @@
 
 #ifndef header_h
 #define header_h
+#define M10 10
+#define M200 200
 
-char *carregarDoTxt(void);
+char *carregarDoTxt(char filename[]);
 char ** criarMatrizDinamica(int size);
 void alocarMemoriaParaLinha(char **matriz, int position, long size);
 char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToAdd);

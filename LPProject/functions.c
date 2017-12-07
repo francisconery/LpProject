@@ -13,22 +13,22 @@
 /**
  * @brief Função que vai carregar do txt para o programa
  */
-char * carregarDoTxt(){
+char * carregarDoTxt(char filename[]){
 	
-	char url[]="/Users/francisconery/Documents/XCode/LpProject/LPProject/conversa.txt"; // para ti, comentas a linha a baixo e inseres a outra com o teu url de pastas
-	FILE * fp = fopen(url, "r");
-	char buffer[100];
+	FILE * fp = fopen(filename, "r");
+	char buffer[M200];
 	char * content = (char*)calloc(sizeof(char), 1);
-	int readed = 0;
+	int readed = 1;
 	
 	if (fp != NULL){
-		while(fgets(buffer, 100, fp)){
+		while(fgets(buffer, M200, fp)){
 			
 			readed+=strlen(buffer);
 			content = (char*)realloc(content, sizeof(char) * readed);
 			strcat(content, buffer);
 		}
 		fclose(fp);
+		printf("carregarDoTxt(): content = %s\n", content);
 		return content;
 	}
 	return NULL;
@@ -39,8 +39,7 @@ char * carregarDoTxt(){
  * @param size numero de linhas a criar a matriz
  */
 char ** criarMatrizDinamica(int size){
-	char ** aux = (char**)malloc(sizeof(char*)* size);
-	return aux;
+	return (char**)calloc(sizeof(char*), size);
 }
 
 /**
@@ -50,8 +49,9 @@ char ** criarMatrizDinamica(int size){
  * @param size numero de linhas
  */
 void alocarMemoriaParaLinha(char **matriz, int position, long size){
-	if (matriz != NULL)
+	if (matriz != NULL){
 		*(matriz + position) = (char*)calloc(sizeof(char), size);
+	}
 }
 
 /**
@@ -61,8 +61,8 @@ void alocarMemoriaParaLinha(char **matriz, int position, long size){
  * @param numPositionsToAdd numero de posições a adicionar
  */
 char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToAdd){
-	*matriz = (char*)realloc(*matriz, sizeof(char*) * ((*matrizSize) + numPositionsToAdd));
 	(*matrizSize) = (*matrizSize) + numPositionsToAdd;
+	matriz = (char**)realloc(matriz, sizeof(char*) * (*matrizSize));
 	return matriz;
 }
 
@@ -73,22 +73,23 @@ char ** addicionaMaisLinhas(char **matriz, int * matrizSize, int numPositionsToA
  * @param numeroLinhas numero de linahs utilizadas até agora
  * @param string string do txt a ser carregada numa linha
  */
-void insertLinha(char ** matriz, int * tamanhoMatriz, int * numeroLinhas, char * string){
+void insertLinha(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char *string){
 	if (matriz == NULL){
-		matriz = criarMatrizDinamica(10);
+		matriz = criarMatrizDinamica(M10);
 		(*tamanhoMatriz) = 0;
 		(*numeroLinhas) = 0;
 	}
 	
 	if ((*numeroLinhas) >= (*tamanhoMatriz)){
-		matriz = addicionaMaisLinhas(matriz, tamanhoMatriz, 10);
+		matriz = addicionaMaisLinhas(matriz, tamanhoMatriz, M10);
 	}
 	
-	long stringSize = strlen(string);
-	alocarMemoriaParaLinha(matriz, *numeroLinhas, stringSize);
+	long stringSize = strlen(string)+1; //Contar com '\0'
 	int aux = *numeroLinhas;
-	
+	alocarMemoriaParaLinha(matriz, aux, stringSize);
 	strcpy(*(matriz + aux), string);
+	printf("insertLinha(): string = %s\n", string);
+	printf("insertLinha(): *(matriz + %d) = %s\n", aux, *(matriz + aux));
 	*numeroLinhas = aux + 1;
 }
 
@@ -98,10 +99,13 @@ void insertLinha(char ** matriz, int * tamanhoMatriz, int * numeroLinhas, char *
  * @param numLinesUsed numero de linahs utilizadas até ao momento
  */
 void printMatriz(char ** matriz, int numLinesUsed){
-	if (matriz != NULL){
-		puts("Matrix content:\n");
-		for (int i = 0; i<numLinesUsed; i++){
-			puts(*(matriz + i));
+	if (matriz != NULL)
+	{
+		printf("printMatriz(): Matrix content: numLinesUsed = %d\n", numLinesUsed);
+		for (int i = 0; i<numLinesUsed; i++)
+		{
+			printf("Line[%d]=%s\n", i, *(matriz + i));
+			//printf("Line[%d]=\n", i);
 		}
 	}
 }
@@ -116,21 +120,25 @@ void printMatriz(char ** matriz, int numLinesUsed){
  * @param conjunto delimitadores do token
  */
 void token(char **matriz, int *tamanhoMatriz, int *numeroLinhas, char * string, char *conjunto){
-	char * t;
-	char * stringClone = (char*)malloc(sizeof(char) * strlen(string));
+	char * t=NULL;
 	char * strstrResult = NULL;
 	char * finalMessage = NULL;
+	char * stringClone = (char*)malloc(sizeof(char) * (strlen(string)+1));
 	
 	strcpy(stringClone, string);
 	
-	t= strtok(string, conjunto);
+	t = strtok(stringClone, conjunto);
 	
 	while (t!=NULL) {
-	finalMessage = (char*)calloc(sizeof(char), strlen(t) + 1);
+		printf("token(): t = %s\n", t);
+		finalMessage = (char*)calloc(sizeof(char), strlen(t) + 2);
 		strcpy(finalMessage, t);
-		strstrResult = strstr(stringClone, t);
+		strstrResult = strstr(string, t);
 	
 		finalMessage[strlen(t)] = strstrResult[strlen(t)];
+		finalMessage[strlen(t)+1] = '\0';
+		
+		printf("token(): finalMessage = %s\n", finalMessage);
 		
 		insertLinha(matriz, tamanhoMatriz, numeroLinhas, finalMessage);
 		free(finalMessage);
