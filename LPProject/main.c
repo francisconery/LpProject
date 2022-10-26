@@ -28,16 +28,5 @@ int main(int argc, const char * argv[]) {
 	printMatriz(matriz, matrizUsedLines);
 	printf("___\n");
 	
-	/*
-	char **dicionario = criarMatrizDinamica(dicionarioSize); //matriz para dicionario inicializada
-	token(dicionario,&dicionarioSize, &dicionarioUsedLines,fileMessages, " ");
-
-	dicionario=verificaRepeatedWords(&fileMessages, &dicionarioSize,&dicionarioUsedLines);
-	printMatriz(dicionario, dicionarioUsedLines);
-	printf("___\n");
-	*/
-	
-	//int **indices=NULL;
-	
     return 0;
 }
