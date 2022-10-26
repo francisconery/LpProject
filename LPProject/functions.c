@@ -184,35 +184,6 @@ int verificaDicionario(char *string,char **aux,int *size){
 			return 0;
 	}
 	return 0;
-	}
+}
  
-/**
-	if (dicionario == NULL){
-		dicionario = criarMatrizDinamica(1);
-		(*dicionarioSize) = 0;
-		(*dicionarioUsedLines) = 0;
-	}
-	if ((*dicionarioUsedLines) >= (*dicionarioSize)){
-			dicionario = addicionaMaisLinhas(dicionario, dicionarioSize, 1);
-		}
 
-	long stringSize = strlen(string);
-	alocarMemoriaParaLinha(dicionario, *dicionarioUsedLines, stringSize);
-
-	strcpy(dicionario[(*dicionarioUsedLines)++], string);
-
-}
-*/
-/** //Feito pelo prof
-for(i=0;i<size;i++){
-	if(existe_anterior(argv,i))
-		strcat((str,arg[i]))int size);
-
-}
-
-existe_anterior(){
-	for(int k=i-1;i>=0;i++){
-		if(strcmp(argv[k],argv[i]);
-	}
-}
-*/
